@@ -1,26 +1,22 @@
-# PCDA Sports Performance Tracker — v3 Full
+# PCDA Sports Performance Tracker — v3.2 (JS Only)
 
-Public motivational tracker for PCDA players with **PIN-protected logging**, **admin player management**, and **exercise filters**.
+**New in v3.2**  
+- 📥 **CSV Importer** on `/admin` (Admin Key required).  
+- 🏅 **Personal Records** card on player dashboards.
 
-## Quick Deploy
-1. Create a Vercel project and add **Vercel Postgres**.
-2. Add env vars (Project → Settings → Environment Variables). See `.env.example`:
+## Deploy
+1. Push to GitHub → Import to Vercel.
+2. Add **Vercel Postgres**.
+3. Set env vars:
    - `POSTGRES_*` (from Vercel Postgres)
-   - `ADMIN_KEY` (your secret to access `/admin`)
-3. Deploy. First request will auto‑create the tables and seed demo players (`alex/1111`, `jordan/2222`, `sam/3333`).
+   - `ADMIN_KEY` (secret for /admin)
+4. Deploy. Tables + demo players (alex/1111, jordan/2222, sam/3333) are created on first request.
 
-## Routes
-- `/` — Leaderboard + highlights
-- `/log` — PIN-protected logging form
-- `/players` — List of players
-- `/player/[handle]` — Player dashboard with exercise filter
-- `/admin` — Add players (requires `ADMIN_KEY`)
+## CSV Format
+```
+date,handle,pin,exercise,machine,start_weight,end_weight,sets,reps,rpe,muscle_mass,body_weight,body_fat,notes
+2025-01-10,alex,1111,Squat,Rack,60,80,3,8,8,35,82,12,Good depth
+```
+Upload this via `/admin`. A sample is in `demo/import_sample.csv`.
 
-## API
-- `POST /api/entries` — Create entry (requires handle + pin)
-- `GET /api/entries?handle=alex` — List entries
-- `GET /api/players` — Leaderboard data
-- `GET /api/highlights` — Highlights
-- `POST /api/admin/add-player` — Add/update player (requires ADMIN_KEY)
-
-> PINs are stored as plain text for simplicity. You can later migrate to hashed secrets if needed.
+> Note: CSV parser is simple (no quoted-commas). Export clean CSVs without embedded commas or quotes.

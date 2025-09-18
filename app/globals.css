@@ -12,3 +12,4 @@ body { @apply bg-gray-50 text-gray-900; }
 .table { @apply w-full text-left; }
 .table th { @apply text-sm text-gray-500 font-medium pb-2; }
 .table td { @apply py-1; }
+.badge { @apply inline-flex items-center gap-1 rounded-full border px-3 py-1 text-sm; }
